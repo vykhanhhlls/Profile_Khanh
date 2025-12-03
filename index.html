@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile của bạn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #0d0d1a;
+      --card: rgba(255, 255, 255, 0.08);
+      --text: #e0e0ff;
+      --accent: #00d4ff;
+      --border: rgba(255, 255, 255, 0.15);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 20%);
+    }
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .header {
+      text-align: center;
+      padding: 40px 30px 20px;
+    }
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+    }
+    .name {
+      font-size: 26px;
+      margin: 16px 0 8px;
+      font-weight: 700;
+    }
+    .bio {
+      font-size: 15px;
+      opacity: 0.8;
+    }
+    .info {
+      padding: 0 30px 20px;
+      font-size: 15px;
+      line-height: 2;
+    }
+    .info i {
+      width: 24px;
+      color: var(--accent);
+    }
+    .links {
+      padding: 10px 30px 30px;
+    }
+    .link-item {
+      display: block;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin-bottom: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 16px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .link-item:hover {
+      background: rgba(0, 212, 255, 0.15);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .link-item i { font-size: 20px; color: var(--accent); }
+    .add-btn {
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: white !important;
+      font-weight: 600;
+      justify-content: center;
+    }
+    .add-btn i { color: white; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <img src="https://via.placeholder.com/300" alt="Avatar" class="avatar" id="avatar"/>
+    <h1 class="name">Nguyễn Văn A</h1>
+    <p class="bio">Chào bạn! Đây là trang profile của mình</p>
+  </div>
+
+  <!-- Thông tin cơ bản -->
+  <div class="info">
+    <div><i class="fas fa-calendar-alt"></i> 01/01/2000</div>
+    <div><i class="fas fa-map-marker-alt"></i> TP. Hồ Chí Minh, Việt Nam</div>
+    <div><i class="fas fa-envelope"></i> example@gmail.com</div>
+    <div><i class="fas fa-phone"></i> 0909 123 456</div>
+  </div>
+
+  <!-- Các link -->
+  <div class="links" id="links-container">
+    <a href="https://facebook.com/yourprofile" target="_blank" class="link-item">
+      <i class="fab fa-facebook-f"></i> Facebook
+    </a>
+    <a href="https://zalo.me/0909123456" target="_blank" class="link-item">
+      <i class="fas fa-comment-dots"></i> Zalo
+    </a>
+    <!-- Nút thêm link -->
+    <div class="link-item add-btn" onclick="addNewLink()">
+      <i class="fas fa-plus"></i> Thêm link mới
+    </div>
+  </div>
+</div>
+
+<script>
+  // Thay ảnh đại diện của bạn ở đây (dán link ảnh trực tiếp)
+  document.getElementById("avatar").src = "https://via.placeholder.com/300"; 
+
+  function addNewLink() {
+    const name = prompt("Tên hiển thị (ví dụ: Instagram, TikTok, GitHub...):");
+    if (!name) return;
+    
+    const url = prompt("Dán link đầy đủ (có https://):");
+    if (!url || !url.startsWith("http")) {
+      alert("Link không hợp lệ, vui lòng thử lại!");
+      return;
+    }
+
+    const icon = prompt("Icon FontAwesome (ví dụ: fa-instagram, fa-github, fa-tiktok) \nXem danh sách tại: https://fontawesome.com/icons", "fas fa-link");
+
+    const container = document.getElementById("links-container");
+    const lastAddBtn = container.querySelector(".add-btn");
+
+    const newLink = document.createElement("a");
+    newLink.href = url;
+    newLink.target = "_blank";
+    newLink.className = "link-item";
+    newLink.innerHTML = `<i class="${icon}"></i> ${name}`;
+
+    container.insertBefore(newLink, lastAddBtn);
+  }
+</script>
+
+</body>
+</html>
